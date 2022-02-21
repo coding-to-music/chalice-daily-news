@@ -91,6 +91,7 @@ Let’s deploy this app. From the daily-news folder, run the chalice deploy comm
 ![image](https://user-images.githubusercontent.com/3156358/154875438-bfef59c0-ccc3-4f45-9d0e-4548a5f7e9f3.png)
 
 Deployment (Image by Author)
+
 This deploys your API on AWS using Amazon API Gateway and AWS Lambda.
 
 daily-news API in API Gateway (Image by Author)
@@ -98,6 +99,7 @@ daily-news API in API Gateway (Image by Author)
 ![image](https://user-images.githubusercontent.com/3156358/154875411-94987f0d-d814-4371-9a94-0ec4eb58c272.png)
 
 daily-news-dev Lambda Function (Image by Author)
+
 You can now try accessing the API.
 
 ![image](https://user-images.githubusercontent.com/3156358/154875323-c67a19be-7642-4069-ae8b-53afc8e051dd.png)
