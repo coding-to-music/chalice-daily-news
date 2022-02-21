@@ -126,6 +126,40 @@ def index():
 
 Note that you installed a few dependencies to make the code work. These dependencies were installed locally, and will not be available to the AWS Lambda container at runtime. To make them available to AWS Lambda, you will need to package them along with your code. To do that, add the following to the requirements.txt file. Chalice packs these dependencies as part of your code during build and uploads them as part of the Lambda function.
 
+The final code should look like this:
+
+```java
+
+
+from chalice import Chalice
+import bs4
+from bs4 import BeautifulSoup as soup
+from urllib.request import urlopen
+
+news_url = "https://news.google.com/news/rss"
+app = Chalice(app_name='daily-news')
+
+@app.route('/news')
+def index():
+    news = get_news_from_google()
+    return {'result': news}
+
+
+def get_news_from_google():
+    client = urlopen(news_url)
+    page = client.read()
+    client.close()
+    souped = soup(page, "xml")
+    news_list = souped.findAll("item")
+    result = []
+    for news in news_list:
+        data = {}
+        data['title'] = news.title.text
+        data['date'] = news.pubDate.text
+        result.append(data)
+    return result
+```
+
 ```java
 pip freeze | grep "beautifulsoup4" >>  requirements.txt
 pip freeze | grep "bs4" >>  requirements.txt
