@@ -178,9 +178,58 @@ lxml==4.5.0
 
 Let’s deploy this app. From the daily-news folder, run the chalice deploy command.
 
+```java
+chalice deploy
+```
+
 ![image](https://user-images.githubusercontent.com/3156358/154875438-bfef59c0-ccc3-4f45-9d0e-4548a5f7e9f3.png)
 
 Deployment (Image by Author)
+
+## Here is my deployment error
+
+```java
+/usr/local/lib/python3.8/dist-packages/_distutils_hack/__init__.py:36: UserWarning: Setuptools is replacing distutils.
+  warnings.warn("Setuptools is replacing distutils.")
+Creating deployment package.
+Reusing existing deployment package.
+Updating policy for IAM role: chalice-daily-news-dev
+Creating lambda function: chalice-daily-news-dev
+Traceback (most recent call last):
+  File "/home/tmc/.local/lib/python3.8/site-packages/chalice/cli/__init__.py", line 636, in main
+    return cli(obj={})
+  File "/usr/lib/python3/dist-packages/click/core.py", line 764, in __call__
+    return self.main(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/click/core.py", line 717, in main
+    rv = self.invoke(ctx)
+  File "/usr/lib/python3/dist-packages/click/core.py", line 1137, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+  File "/usr/lib/python3/dist-packages/click/core.py", line 956, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+  File "/usr/lib/python3/dist-packages/click/core.py", line 555, in invoke
+    return callback(*args, **kwargs)
+  File "/usr/lib/python3/dist-packages/click/decorators.py", line 17, in new_func
+    return f(get_current_context(), *args, **kwargs)
+  File "/home/tmc/.local/lib/python3.8/site-packages/chalice/cli/__init__.py", line 189, in deploy
+    deployed_values = d.deploy(config, chalice_stage_name=stage)
+  File "/home/tmc/.local/lib/python3.8/site-packages/chalice/deploy/deployer.py", line 376, in deploy
+    return self._deploy(config, chalice_stage_name)
+  File "/home/tmc/.local/lib/python3.8/site-packages/chalice/deploy/deployer.py", line 392, in _deploy
+    self._executor.execute(plan)
+  File "/home/tmc/.local/lib/python3.8/site-packages/chalice/deploy/executor.py", line 42, in execute
+    getattr(self, '_do_%s' % instruction.__class__.__name__.lower(),
+  File "/home/tmc/.local/lib/python3.8/site-packages/chalice/deploy/executor.py", line 55, in _do_apicall
+    result = method(**final_kwargs)
+  File "/home/tmc/.local/lib/python3.8/site-packages/chalice/awsclient.py", line 408, in create_function
+    arn, state = self._create_lambda_function(kwargs)
+  File "/home/tmc/.local/lib/python3.8/site-packages/chalice/awsclient.py", line 575, in _create_lambda_function
+    result = self._call_client_method_with_retries(
+  File "/home/tmc/.local/lib/python3.8/site-packages/chalice/awsclient.py", line 1890, in _call_client_method_with_retries
+    client.exceptions.ResourceInUseException,
+  File "/home/tmc/.local/lib/python3.8/site-packages/botocore/errorfactory.py", line 51, in __getattr__
+    raise AttributeError(
+AttributeError: <botocore.errorfactory.LambdaExceptions object at 0x7f1ed11ac3d0> object has no attribute 'ResourceInUseException'. Valid exceptions are: CodeStorageExceededException, EC2AccessDeniedException, EC2ThrottledException, EC2UnexpectedException, ENILimitReachedException, InvalidParameterValueException, InvalidRequestContentException, InvalidRuntimeException, InvalidSecurityGroupIDException, InvalidSubnetIDException, InvalidZipFileException, KMSAccessDeniedException, KMSDisabledException, KMSInvalidStateException, KMSNotFoundException, PolicyLengthExceededException, RequestTooLargeException, ResourceConflictException, ResourceNotFoundException, ServiceException, SubnetIPAddressLimitReachedException, TooManyRequestsException, UnsupportedMediaTypeException
+```
 
 This deploys your API on AWS using Amazon API Gateway and AWS Lambda.
 
@@ -199,6 +248,8 @@ Calling the news API (Image by Author)
 # Cleaning Up
 
 You can also use the chalice delete command to delete all the resources created when you ran the chalice deploy command.
+
+![image](https://user-images.githubusercontent.com/3156358/154881697-9531e88b-0d57-4361-bd59-6bb625237034.png)
 
 Deleting Resources (Image by Author)
 
