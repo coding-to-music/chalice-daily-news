@@ -68,6 +68,17 @@ Image by Author
 
 Let’s take a look at the app.py file:
 
+```java
+from chalice import Chalice
+
+app = Chalice(app_name='daily-news')
+
+
+@app.route('/')
+def index():
+    return {'hello': 'world'}
+```
+
 The new-project command created a sample app that defines a single view, / that returns the JSON body {"hello": "world"} when called. You can now modify this template and add more code to read news from Google.
 We will be using Google’s RSS feed, and will need a Python library called Beautiful Soup for parsing the XML data. You can install Beautiful Soup and its XML parsing library using pip.
 
@@ -78,11 +89,56 @@ $ python3 -m pip install lxml
 
 Next add the following imports to app.py. This essentially adds imports from urllib to make HTTP calls and bs4 to parse XML.
 
+```java
+import bs4
+from bs4 import BeautifulSoup as soup
+from urllib.request import urlopen
+
+news_url = "https://news.google.com/news/rss"
+```
+
 Next, you need to add a method to fetch the RSS feed from Google, parse it to extract the news title and publication date, and create a list of news items. To do this, add the following code to your app.py
+
+```java
+def get_news_from_google():
+    client = urlopen(news_url)
+    page = client.read()
+    client.close()
+    souped = soup(page, "xml")
+    news_list = souped.findAll("item")
+    result = []
+    for news in news_list:
+        data = {}
+        data['title'] = news.title.text
+        data['date'] = news.pubDate.text
+        result.append(data)
+    return result
+```
 
 Update the index method in app.py to invoke this and return the list of news items as result.
 
+```java
+@app.route('/news')
+def index():
+    news = get_news_from_google()
+    return {'result': news}
+```
+
 Note that you installed a few dependencies to make the code work. These dependencies were installed locally, and will not be available to the AWS Lambda container at runtime. To make them available to AWS Lambda, you will need to package them along with your code. To do that, add the following to the requirements.txt file. Chalice packs these dependencies as part of your code during build and uploads them as part of the Lambda function.
+
+```java
+pip freeze | grep "beautifulsoup4" >>  requirements.txt
+pip freeze | grep "bs4" >>  requirements.txt
+pip freeze | grep "soupsieve" >>  requirements.txt
+pip freeze | grep "lxml" >>  requirements.txt
+```
+
+```java
+beautifulsoup4==4.8.2
+bs4==0.0.1
+soupsieve==1.9.5
+lxml==4.5.0
+```
 
 # Deploying the Project
 
