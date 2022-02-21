@@ -228,7 +228,34 @@ Traceback (most recent call last):
     client.exceptions.ResourceInUseException,
   File "/home/tmc/.local/lib/python3.8/site-packages/botocore/errorfactory.py", line 51, in __getattr__
     raise AttributeError(
-AttributeError: <botocore.errorfactory.LambdaExceptions object at 0x7f1ed11ac3d0> object has no attribute 'ResourceInUseException'. Valid exceptions are: CodeStorageExceededException, EC2AccessDeniedException, EC2ThrottledException, EC2UnexpectedException, ENILimitReachedException, InvalidParameterValueException, InvalidRequestContentException, InvalidRuntimeException, InvalidSecurityGroupIDException, InvalidSubnetIDException, InvalidZipFileException, KMSAccessDeniedException, KMSDisabledException, KMSInvalidStateException, KMSNotFoundException, PolicyLengthExceededException, RequestTooLargeException, ResourceConflictException, ResourceNotFoundException, ServiceException, SubnetIPAddressLimitReachedException, TooManyRequestsException, UnsupportedMediaTypeException
+
+AttributeError: <botocore.errorfactory.LambdaExceptions object at 0x7f1ed11ac3d0>
+object has no attribute 'ResourceInUseException'.
+
+Valid exceptions are:
+CodeStorageExceededException,
+EC2AccessDeniedException,
+EC2ThrottledException,
+EC2UnexpectedException,
+ENILimitReachedException,
+InvalidParameterValueException,
+InvalidRequestContentException,
+InvalidRuntimeException,
+InvalidSecurityGroupIDException,
+InvalidSubnetIDException,
+InvalidZipFileException,
+KMSAccessDeniedException,
+KMSDisabledException,
+KMSInvalidStateException,
+KMSNotFoundException,
+PolicyLengthExceededException,
+RequestTooLargeException,
+ResourceConflictException,
+ResourceNotFoundException,
+ServiceException,
+SubnetIPAddressLimitReachedException,
+TooManyRequestsException,
+UnsupportedMediaTypeException
 ```
 
 This deploys your API on AWS using Amazon API Gateway and AWS Lambda.
